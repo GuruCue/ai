@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{ISO8601} %-5level [%logger{36}] %msg%n%throwable"/>
+        </Console>
+
+        <RollingRandomAccessFile name="ai" append="true" fileName="${env:LOG_DIR}/ai${env:AICODE}.log" filePattern="${env:LOG_DIR}/ai${env:AICODE}.log.%d{yyyy-MM-dd}">
+            <PatternLayout pattern="%d{ISO8601} %-5level [%logger{2}] %msg%n%throwable"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="ai-debug" append="true" fileName="${env:LOG_DIR}/ai${env:AICODE}-debug.log" filePattern="${env:LOG_DIR}/ai${env:AICODE}-debug.log.%d{yyyy-MM-dd}">
+            <PatternLayout pattern="%d{ISO8601} %-5level [%logger{2}] %msg%n%throwable"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="ai-error" append="true" fileName="${env:LOG_DIR}/ai${env:AICODE}-error.log" filePattern="${env:LOG_DIR}/ai${env:AICODE}-error.log.%d{yyyy-MM-dd}">
+            <PatternLayout pattern="%d{ISO8601} %-5level [%logger{2}] %msg%n%throwable"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef level="info" ref="ai"/>
+            <AppenderRef level="debug" ref="ai-debug"/>
+            <AppenderRef level="error" ref="ai-error"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
+<!-- vim: set ts=4 sw=4 et: -->
